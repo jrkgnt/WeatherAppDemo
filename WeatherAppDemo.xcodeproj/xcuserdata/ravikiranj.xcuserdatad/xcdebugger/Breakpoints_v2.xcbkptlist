@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "CD66C5F5-FC7F-46E6-94F3-E55E31A1C9E7"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "500BD1F9-EF7B-4D03-A8E6-456C849ACA20"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppDemo/Feature/WDWeatherDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "addAction()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "500BD1F9-EF7B-4D03-A8E6-456C849ACA20 - 1ebcf3253fbf4489"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WeatherAppDemo.WDWeatherDetailsViewController.addAction() -&gt; ()"
+                  moduleName = "WeatherAppDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravikiranj/Documents/Personal-projects/WeatherAppDemo/WeatherAppDemo/Feature/WDWeatherDetailsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "500BD1F9-EF7B-4D03-A8E6-456C849ACA20 - 1ebcf3253fbf4489"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WeatherAppDemo.WDWeatherDetailsViewController.addAction() -&gt; ()"
+                  moduleName = "WeatherAppDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravikiranj/Documents/Personal-projects/WeatherAppDemo/WeatherAppDemo/Feature/WDWeatherDetailsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "25EB8278-E03E-4732-B107-FBB635C67FD6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppDemo/Feature/WDWeatherDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "showAlert(with:title:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A0152CAF-7BDF-493F-891F-8780DEE30911"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppDemo/Persistence/WDStorageManaging.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "saveLocationWeather(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9E4D528F-C63F-4AA8-85E9-BFA7CA8F1E61"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppDemo/Persistence/WDStorageManaging.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "saveLocationWeather(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FD137742-66B1-4D24-ACB6-51D49F78F982"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppDemo/Feature/WDWeatherSearchViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FD137742-66B1-4D24-ACB6-51D49F78F982 - 17fe64c0241bd7df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.CLLocation&gt;) -&gt; () in WeatherAppDemo.WDWeatherSearchViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "WeatherAppDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravikiranj/Documents/Personal-projects/WeatherAppDemo/WeatherAppDemo/Feature/WDWeatherSearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "312">
+               </Location>
+               <Location
+                  uuid = "FD137742-66B1-4D24-ACB6-51D49F78F982 - 17fe64c0241bd7df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.CLLocation&gt;) -&gt; () in WeatherAppDemo.WDWeatherSearchViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "WeatherAppDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravikiranj/Documents/Personal-projects/WeatherAppDemo/WeatherAppDemo/Feature/WDWeatherSearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "760">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "016C1E1D-37BD-46C6-B6C7-0ABB6DBED648"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppDemo/Feature/WDWeatherSearchViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "016C1E1D-37BD-46C6-B6C7-0ABB6DBED648 - 17fe64c0241bd77a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.CLLocation&gt;) -&gt; () in WeatherAppDemo.WDWeatherSearchViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "WeatherAppDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravikiranj/Documents/Personal-projects/WeatherAppDemo/WeatherAppDemo/Feature/WDWeatherSearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "948">
+               </Location>
+               <Location
+                  uuid = "016C1E1D-37BD-46C6-B6C7-0ABB6DBED648 - 25df81da4ddc0870"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (WeatherAppDemo.WDWeather) -&gt; Swift.Bool in closure #1 (Swift.Optional&lt;__C.CLLocation&gt;) -&gt; () in WeatherAppDemo.WDWeatherSearchViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "WeatherAppDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravikiranj/Documents/Personal-projects/WeatherAppDemo/WeatherAppDemo/Feature/WDWeatherSearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "938393A1-97E8-4C7E-8DB3-4313E371A990"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppDemo/LocationFetcher/WDLocationFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "requestCurrentUserLocation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
