@@ -21,3 +21,15 @@
 - Create NavigationController in code instead fo storyboard to silence below assert in console.
     self.window?.rootViewController = navigationVC self.window?.makeKeyAndVisible() //https://developer.apple.com/forums/thread/714278
 
+## Demo
+### iPhone
+
+
+https://github.com/jrkgnt/WeatherAppDemo/assets/117503798/3d3e9da6-1845-4a93-98a5-54719d0e1cf2
+
+
+
+### iPad
+
+https://github.com/jrkgnt/WeatherAppDemo/assets/117503798/cb9b3728-fff8-4454-a516-b1f85dae6d38
+
