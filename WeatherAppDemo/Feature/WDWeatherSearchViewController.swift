@@ -40,16 +40,47 @@ class WDWeatherSearchViewController: UIViewController {
         
         self.navigationItem.title = "Weather Demo"
         self.fetchingProgressLabel.isHidden = true
+        
+        //Requirement 2: Search Screen
         setupSearchController()
         setupCollectionView()
         makeDataSource()
+        // Update the city list
+        updateCitiesWeatherInfoList()
         
+        //Requirement 3: Auto-load the last city searched upon app launch.
+        let listOfSavedWeatherInfo = self.storage.loadListOfSavedWeathers()
+        if let weatherInfoToLaunch = listOfSavedWeatherInfo.first {
+            self.showWeatherDetailViewController(using: weatherInfoToLaunch, animated: false)
+        }
+        
+        // Requirement 4: Ask the User for location access, If the User gives permission to access the location, then retrieve weather data by default
+        fetchCurrentLocationAndShowDetailsIfNeeded()
+        
+        // subscribe to changes in weatherListOfCities on disk & update list
+        UserDefaults.standard.publisher(for: \.weatherList).delay(for: .seconds(0.5), scheduler: RunLoop.main).sink {[weak self] _ in
+            debugPrint("UserDefaults changed on key weatherList")
+            self?.updateCitiesWeatherInfoList()
+        }.store(in: &cancellables)
+        
+    }
+    
+    private func updateCitiesWeatherInfoList() {
+        // Retrieve saved list of weather info & update the collectionview
+        let listOfSavedWeatherInfo = self.storage.loadListOfSavedWeathers()
+        // don't show fetching lable if there are cities to show
+        self.fetchingProgressLabel.isHidden = listOfSavedWeatherInfo.count > 0
+        self.filteredCities = listOfSavedWeatherInfo.map { weatherInfo in
+            WDWeatherViewModel(weatherDetails: weatherInfo)
+        }
+    }
+    
+    private func fetchCurrentLocationAndShowDetailsIfNeeded() {
         let listOfSavedWeatherInfo = self.storage.loadListOfSavedWeathers()
         locationFetcher.$currentLocation.sink { [weak self] locationSubject in
-            debugPrint("FETCHED CURRENT LOCATION")
+            debugPrint("CURRENT LOCATION UPDATED to: \(String(describing: locationSubject)) , previous Location: \(String(describing: self?.currentLocation))")
             if locationSubject != self?.currentLocation, let location = locationSubject {
                 self?.currentLocation = location
-                self?.fetchingProgressLabel.isHidden = false
                 
                let hasDataForCurrentLocation = listOfSavedWeatherInfo.first { weatherInfo in
                     let locationLat = Double(location.coordinate.latitude).rounded(toPlaces: 4)
@@ -59,48 +90,34 @@ class WDWeatherSearchViewController: UIViewController {
                     return sameLat && sameLon
                } != nil
                 
-                // fetch only if current location data is not on disk
-                let loadCurrentLocation = !hasDataForCurrentLocation //&& listOfSavedWeatherInfo.count == 0
+                // Show option to Add the current location details only if
+                // 1) current location data is not on disk & nothing else to show
+                let loadCurrentLocation = !hasDataForCurrentLocation && listOfSavedWeatherInfo.count == 0
                 if loadCurrentLocation {
-                    self?.presentWeatherDetailsVC(place: .location(WDWeather.Coord(lon: location.coordinate.latitude, lat: location.coordinate.latitude)))
+                    self?.fetchingProgressLabel.isHidden = false
+                    self?.presentWeatherDetailsVC(place: .location(WDWeather.Coord(lon: location.coordinate.longitude, lat: location.coordinate.latitude)))
                 }
             }
         }.store(in: &cancellables)
         locationFetcher.requestCurrentUserLocation()
-        
-        // Update filteredCities; which will update collection view
-        let loadSavedCityWeatherInfo: ()-> Void = { [weak self] in
-            let listOfSavedWeatherInfo = self?.storage.loadListOfSavedWeathers() ?? []
-            self?.fetchingProgressLabel.isHidden = true
-            self?.filteredCities = listOfSavedWeatherInfo.map { weatherInfo in
-                WDWeatherViewModel(weatherDetails: weatherInfo)
-            }
-        }
-        
-        // subscribe to chnages in weatherListOfCities
-        UserDefaults.standard.publisher(for: \.weatherList).delay(for: .seconds(0.5), scheduler: RunLoop.main).sink { _ in
-            debugPrint("UserDefaults chnaged on key weatherList")
-            loadSavedCityWeatherInfo()
-            
-        }.store(in: &cancellables)
-        
-        // load first time irrespective of subscription
-        loadSavedCityWeatherInfo()
-        
     }
     
-    func presentWeatherDetailsVC(place: WDWeatherDetailsFetchType) {
+    // MARK: Present Details Screen Helper
+    private func presentWeatherDetailsVC(place: WDWeatherDetailsFetchType) {
         let weatherDetailsController = WDWeatherDetailsViewController(place: place)
         weatherDetailsController.modalPresentationStyle = .automatic
+        weatherDetailsController.onPresentationDismissBlock  = { [weak self] _ in
+            self?.fetchingProgressLabel.isHidden = true
+        }
         let navigationController = UINavigationController(rootViewController: weatherDetailsController)
         self.present(navigationController, animated: true)
     }
     
-    func setupSearchController() {
+    // MARK: CollectionView & Search Controller setup helpers
+    private func setupSearchController() {
         // SEARCH CONTROLLER SETUP
         let cityResultsListViewController = WDCitySearchResultsViewController()
         cityResultsListViewController.onCitySelection = { [weak self] cityResultViewModel in
-            // make search inactive
             self?.searchController.dismiss(animated: true, completion: {
                 // show  detail view as a modal with add & cancel options
                 // TODO: delegate this logic of presentation to coordinator
@@ -142,8 +159,8 @@ class WDWeatherSearchViewController: UIViewController {
         self.definesPresentationContext = true
     }
     
-    func createListLayout() -> UICollectionViewLayout {
-        let numOfItemsInGroup: CGFloat = traitCollection.horizontalSizeClass == .compact ?  1 : 2.0
+    private func createListLayout() -> UICollectionViewLayout {
+        let numOfItemsInGroup: CGFloat = traitCollection.horizontalSizeClass == .compact ?  1.0 : 2.0
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/numOfItemsInGroup),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -153,7 +170,6 @@ class WDWeatherSearchViewController: UIViewController {
                                                heightDimension: .estimated(100))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                          subitems: [item])
-        group.interItemSpacing = .fixed(12)
       
         let section = NSCollectionLayoutSection(group: group)
         
@@ -177,8 +193,7 @@ class WDWeatherSearchViewController: UIViewController {
                 validCell.cityLabel.text = item.weatherDetails?.name ?? "---------"
                 validCell.descLabel.text = item.weatherDetails?.weather.first?.description ?? ""
                 
-                let temp = String(Int(item.weatherDetails?.main?.temp ?? 0))
-                validCell.updateTemperature(temperature: temp, theme: self?.theme)
+                validCell.updateTemperature(weatherInfo:item, theme: self?.theme)
             }
             
             return cell
@@ -239,6 +254,13 @@ extension WDWeatherSearchViewController: UISearchResultsUpdating, UISearchContro
     func willDismissSearchController(_ searchController: UISearchController) {
         
     }
+    
+    func showWeatherDetailViewController(using knownWeatherInfo: WDWeather?, animated: Bool = true) {
+        // TODO: Show full screen details page in a paged view
+        let cityName = knownWeatherInfo?.name ?? "------"
+        let weatherDetailsController = WDWeatherDetailsViewController(place: .city(cityName), knownWeatherInfo: knownWeatherInfo, storage: storage)
+        self.navigationController?.pushViewController(weatherDetailsController, animated: animated)
+    }
 }
 
 
@@ -248,10 +270,6 @@ extension WDWeatherSearchViewController: UICollectionViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: false)
             return
         }
-        // TODO: Show full screen details page in a paged view
-        let cityName = resultViewModel.weatherDetails?.name ?? "------"
-        let weatherDetailsController = WDWeatherDetailsViewController(place: .city(cityName), knownWeatherInfo: resultViewModel.weatherDetails, storage: storage)
-        self.navigationController?.pushViewController(weatherDetailsController, animated: true)
+        showWeatherDetailViewController(using: resultViewModel.weatherDetails)
     }
 }
-

@@ -41,7 +41,6 @@ class WDWeatherViewModel: ObservableObject {
         self.service?.loadWeather(city: city, onComplete: { [weak self]  result in
             switch result {
             case .success(let weatherModel):
-                debugPrint(weatherModel)
                 self?.weatherDetails = weatherModel
             case .failure(let error):
                 debugPrint(error)
@@ -50,18 +49,16 @@ class WDWeatherViewModel: ObservableObject {
     }
     
     func loadWeatherDetails(latitude: Double, longitude: Double) {
-        self.service?.loadWeather(latitude: 37.5299316, longitude: -121.9690171, onComplete: {[weak self]  result in
+        self.service?.loadWeather(latitude: latitude, longitude: longitude, onComplete: {[weak self]  result in
             switch result {
             case .success(let weatherModel):
-                debugPrint("FROM LAT LONG: \(weatherModel)")
+                debugPrint("FROM LAT LONG API: \(weatherModel)")
                 self?.weatherDetails = weatherModel
             case .failure(let error):
                 debugPrint(error)
             }
         })
     }
-    
-    
 }
 
 

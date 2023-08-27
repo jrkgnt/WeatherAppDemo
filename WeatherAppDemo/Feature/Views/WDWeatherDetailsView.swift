@@ -53,6 +53,14 @@ class WDWeatherDetailsView: UIView {
         descriptionLabel.text = weatherInfo?.weather.first?.description ?? (weatherInfo?.weather.first?.main ?? "------" )
         descriptionLabel.textColor = theme?.colors.secondaryLabel
         
+        if let imageName = weatherInfo?.backgroundImageName() {
+            backgroundView.image = UIImage(named: imageName)
+        } else if let temperature = weatherInfo?.main?.temp {
+            let backgroundColor = theme?.tempColors.colorFor(tempInFarenhiet: Int(temperature)) ?? UIColor.systemGroupedBackground
+            self.backgroundColor = backgroundColor
+        }
+        
+        
         temperatureLabel.attributedText = makeTemperatureText(with: "--", theme: theme)
         if let validTemp = weatherInfo?.main?.temp {
             let tempToDisplay = Int(validTemp)
@@ -111,8 +119,10 @@ class WDWeatherDetailsView: UIView {
         
         // background
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.image = UIImage(named: "sunny")
+        backgroundView.applyBlurEffect()
+        backgroundView.image = nil
         backgroundView.contentMode = .scaleAspectFill
+        backgroundView.clipsToBounds = true
     }
     
     

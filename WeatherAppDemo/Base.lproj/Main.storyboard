@@ -35,6 +35,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="253.33333333333337" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U5o-1Y-ssJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="253.33333333333334" height="140"/>
+                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tg-jo-6y6">
                                                     <rect key="frame" x="16.000000000000007" y="16" width="112.66666666666669" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -57,16 +60,21 @@
                                             <color key="backgroundColor" systemColor="systemGray5Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="WXf-pn-7zP" secondAttribute="bottom" constant="16" id="1Yp-ce-u34"/>
+                                                <constraint firstItem="U5o-1Y-ssJ" firstAttribute="leading" secondItem="Y3R-e9-oOg" secondAttribute="leading" id="5g7-lZ-Anq"/>
                                                 <constraint firstItem="U7c-Q1-ofp" firstAttribute="centerY" secondItem="Y3R-e9-oOg" secondAttribute="centerY" id="7cJ-Qm-O7b"/>
+                                                <constraint firstAttribute="bottom" secondItem="U5o-1Y-ssJ" secondAttribute="bottom" id="9DU-BV-4rX"/>
                                                 <constraint firstAttribute="trailing" secondItem="WXf-pn-7zP" secondAttribute="trailing" constant="16" id="Bcc-MY-Az1"/>
+                                                <constraint firstItem="U5o-1Y-ssJ" firstAttribute="top" secondItem="Y3R-e9-oOg" secondAttribute="top" id="DMe-Ii-Ied"/>
                                                 <constraint firstAttribute="trailing" secondItem="U7c-Q1-ofp" secondAttribute="trailing" constant="22" id="DZc-9Y-RnU"/>
                                                 <constraint firstItem="2tg-jo-6y6" firstAttribute="top" secondItem="Y3R-e9-oOg" secondAttribute="top" constant="16" id="MMl-bN-XBB"/>
                                                 <constraint firstItem="U7c-Q1-ofp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2tg-jo-6y6" secondAttribute="trailing" constant="8" symbolic="YES" id="bES-6F-nzF"/>
                                                 <constraint firstItem="WXf-pn-7zP" firstAttribute="leading" secondItem="Y3R-e9-oOg" secondAttribute="leading" constant="16" id="fh6-AZ-tIS"/>
+                                                <constraint firstAttribute="trailing" secondItem="U5o-1Y-ssJ" secondAttribute="trailing" id="gcR-HH-VKj"/>
                                                 <constraint firstItem="2tg-jo-6y6" firstAttribute="leading" secondItem="Y3R-e9-oOg" secondAttribute="leading" constant="16" id="iQZ-yd-s4A"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="backgroundImageView" destination="U5o-1Y-ssJ" id="cUY-Oe-BrH"/>
                                             <outlet property="cityLabel" destination="2tg-jo-6y6" id="dNL-Hx-ubI"/>
                                             <outlet property="descLabel" destination="WXf-pn-7zP" id="JHA-ia-2vC"/>
                                             <outlet property="tempLabel" destination="U7c-Q1-ofp" id="kL6-Ua-CBE"/>

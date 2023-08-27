@@ -35,7 +35,7 @@ class WDCurrentLocationFetcher: NSObject, ObservableObject {
 extension WDCurrentLocationFetcher: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        debugPrint("didUpdateLocations CURRENT LOCATION:\(locations)")
+        debugPrint("didUpdateLocations:\(locations)")
         if let location = locations.last {
             locationManager.stopUpdatingLocation()
             // Handle location update

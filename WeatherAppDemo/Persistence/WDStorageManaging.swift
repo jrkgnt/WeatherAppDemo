@@ -9,7 +9,6 @@ import Foundation
 
 protocol WDStorageManaging {
     func saveLocationWeather(_ weather: WDWeather) -> Result<Void, Error>
-    func loadLastSavedLocationWeather() -> Result<WDWeather, Error>
     func loadListOfSavedWeathers() -> [WDWeather]
     func updateWeatherDetails(_ weather: WDWeather) -> Result<Void, Error>
 }
@@ -29,16 +28,9 @@ public extension UserDefaults {
     }
 }
 
-// TODO: NOTE: implementation detail of saving the list in speciifc order and always retriving the first item is hard coded;
+// TODO: NOTE: Due to lack of time, didn't make this generic
+// this class is aware of app specific implementation detail of saving the list in specific order, retrieving the first item is hard coded;
 class WDUserDefaultsPersistence: WDStorageManaging {
-    
-    func loadLastSavedLocationWeather() -> Result<WDWeather, Error> {
-        let savedList = loadListOfSavedWeathers()
-        if  let firstItem = savedList.first  {
-            return .success(firstItem)
-        }
-        return .failure(WDCustomError.custom(code: WDCustomErrorCodes.persistenceFailure.rawValue, message: "No items in defaults"))
-    }
     
     func loadListOfSavedWeathers() -> [WDWeather] {
         let defaults = UserDefaults.standard
@@ -67,7 +59,7 @@ class WDUserDefaultsPersistence: WDStorageManaging {
         return writeToDisk(existingList: existingList)
     }
     
-    
+    @discardableResult
     func updateWeatherDetails(_ weather: WDWeather) -> Result<Void, Error> {
         var existingList = loadListOfSavedWeathers()
         // update existing list

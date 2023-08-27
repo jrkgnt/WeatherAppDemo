@@ -23,6 +23,7 @@ class WDWeatherDetailsViewController: UIViewController {
     var parentVC: UIViewController?
     
     var knownWeatherInfo:WDWeather? = nil
+    var onPresentationDismissBlock: ((Bool) -> Void)?
     
     var cancellables = Set<AnyCancellable>()
     
@@ -37,7 +38,7 @@ class WDWeatherDetailsViewController: UIViewController {
         } else {
             self.city = nil
         }
-
+        
         if case .location(let coord) = place {
             self.location = coord
         } else {
@@ -59,52 +60,84 @@ class WDWeatherDetailsViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        debugPrint(#function)
+        self.customizeNavBar()
         
-        if self.isModal {
-            // Customize left and right bar button items
-            let leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction))
-            navigationItem.leftBarButtonItem = leftBarButtonItem
-            
-            let rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addAction))
-            navigationItem.rightBarButtonItem = rightBarButtonItem
-        }
-        
-        self.navigationController?.navigationBar.tintColor = theme.colors.label // UIColor.white
         // load the view with existing info
         if let existingWeatherInfo = knownWeatherInfo {
             self.weatherView.updateViewWithWeather(weatherInfo: existingWeatherInfo, imageLoaderService: self.imageLoaderService, theme: self.theme)
         }
-        // fetch fresh and update UI after receiving data
-        
+        // fetch and update UI
         if let validCity = city {
             weatherDetailsViewModel.loadWeatherDetails(city: validCity+",US")
         } else if let validLocation = location {
             weatherDetailsViewModel.loadWeatherDetails(latitude: validLocation.lat, longitude: validLocation.lon)
         }
         
-        
         weatherDetailsViewModel.$weatherDetails
             .receive(on: DispatchQueue.main)
             .sink { [weak self] weatherInfo in
-                debugPrint("FECTHED weatherInfo:\(String(describing: weatherInfo))")
-                guard let sself = self else {
+                debugPrint("UPDATED $weatherDetails:\(String(describing: weatherInfo))")
+                guard let sself = self, weatherInfo != nil else {
                     return
                 }
                 sself.weatherView.updateViewWithWeather(weatherInfo: weatherInfo, imageLoaderService: sself.imageLoaderService, theme: sself.theme)
                 
                 // update with latest details if existing
                 if let nonEmptyWeatherInfo = weatherInfo {
-                    sself.storage?.updateWeatherDetails(nonEmptyWeatherInfo)
+                    _ = sself.storage?.updateWeatherDetails(nonEmptyWeatherInfo)
                 }
-                    
+                
             }.store(in: &cancellables)
         parentVC = self.presentingViewController
+       
+    }
+    
+    
+    func customizeNavBar() {
+        guard self.isModal else {
+            return
+        }
+        var shouldShowAddOption = false
+        let listOfSavedWeatherInfo = self.storage?.loadListOfSavedWeathers() ?? []
+        if let validCity = city {
+            // look for this city in saved list
+            let haveCityWeatherInfo = listOfSavedWeatherInfo.contains { weatherInfo in
+                let cityNameWithoutState = String(validCity.split(separator: ",").first ?? "")
+                return weatherInfo.name == validCity || cityNameWithoutState == weatherInfo.name
+            }
+            shouldShowAddOption = !haveCityWeatherInfo
+        } else if let validLocation = location {
+            // look for this coordinates in saved list
+            let haveCityWeatherInfo = listOfSavedWeatherInfo.contains { weatherInfo in
+                let sameLon = weatherInfo.coord?.lon.rounded(toPlaces: 4) == validLocation.lon.rounded(toPlaces: 4)
+                let sameLat = weatherInfo.coord?.lat.rounded(toPlaces: 4) == validLocation.lat.rounded(toPlaces: 4)
+                return sameLon && sameLat
+            }
+            shouldShowAddOption = !haveCityWeatherInfo
+        }
+        
+        // Customize left and right bar button items
+        let leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction))
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+        if shouldShowAddOption {
+            let rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addAction))
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+        }
+        self.navigationController?.navigationBar.tintColor = theme.colors.label // UIColor.white
     }
     
     
     @objc func cancelAction() {
-        dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+            self?.onPresentationDismissBlock?(true)
+        }
+    }
+    
+    @objc func backAction() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func addAction() {
@@ -124,7 +157,11 @@ class WDWeatherDetailsViewController: UIViewController {
                 break
             }
         }
-        dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+            self?.onPresentationDismissBlock?(true)
+        }
+        
     }
     
     

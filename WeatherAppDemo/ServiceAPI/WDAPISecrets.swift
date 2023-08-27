@@ -7,7 +7,7 @@
 
 import Foundation
 
-// TODO: save in keychain
+// TODO: save APIKey in keychain
 enum WDAPISecrets {
     private static let _apiKey: String = "ab986f9f25ef6d98085716e75fce4a9c"
     

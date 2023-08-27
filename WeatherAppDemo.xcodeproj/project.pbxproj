@@ -41,6 +41,7 @@
 		99CB882B2A9A9C18005923DE /* UIViewController+ModalCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB882A2A9A9C18005923DE /* UIViewController+ModalCheck.swift */; };
 		99CB882E2A9AB13E005923DE /* WDLocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB882D2A9AB13E005923DE /* WDLocationFetcher.swift */; };
 		99CB88302A9AB651005923DE /* WDWeatherSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB882F2A9AB651005923DE /* WDWeatherSearchCollectionViewCell.swift */; };
+		99EA5CE92A9B044100FA291A /* UIImageview+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EA5CE82A9B044100FA291A /* UIImageview+Blur.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		99CB882A2A9A9C18005923DE /* UIViewController+ModalCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ModalCheck.swift"; sourceTree = "<group>"; };
 		99CB882D2A9AB13E005923DE /* WDLocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDLocationFetcher.swift; sourceTree = "<group>"; };
 		99CB882F2A9AB651005923DE /* WDWeatherSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDWeatherSearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		99EA5CE82A9B044100FA291A /* UIImageview+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageview+Blur.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +246,7 @@
 				99CB88012A98752F005923DE /* Numbers+Format.swift */,
 				99CB88282A9A5831005923DE /* UIColor+RGB.swift */,
 				99CB882A2A9A9C18005923DE /* UIViewController+ModalCheck.swift */,
+				99EA5CE82A9B044100FA291A /* UIImageview+Blur.swift */,
 			);
 			path = CommonUtils;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				99CB88152A99328A005923DE /* WDWeatherDetailsViewController.swift in Sources */,
 				99CB88272A9A5730005923DE /* WDAppTheme.swift in Sources */,
 				99CB88002A9874F1005923DE /* WDAPISecrets.swift in Sources */,
+				99EA5CE92A9B044100FA291A /* UIImageview+Blur.swift in Sources */,
 				99CB87BE2A9837D0005923DE /* SceneDelegate.swift in Sources */,
 				99CB880F2A9924A9005923DE /* WDCitySearchViewModel.swift in Sources */,
 				99CB880D2A991C91005923DE /* WDCitySearchResultsViewController.swift in Sources */,

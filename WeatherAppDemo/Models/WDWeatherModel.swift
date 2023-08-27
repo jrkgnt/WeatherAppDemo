@@ -221,3 +221,25 @@ struct WDWeather: Codable {
 }
 
 
+extension WDWeather {
+    func backgroundImageName() -> String? {
+        guard let condition = self.weather.first?.condition else {
+            return "sunny"
+        }
+        switch condition {
+        case .thunderstorm:
+            return "stormy"
+        case .drizzle, .lightRain, .rain, .showerRain, .heavyRain , .freezingRain :
+            return "Rainy"
+        case .snow, .lightSnow:
+            return "snowy"
+        case .atmosphere:
+            return "sunny"
+        case .clear:
+            return "sunny"
+        case .fewClouds, .scatteredClouds, .clouds:
+            return "cloudy"
+        }
+        
+    }
+}

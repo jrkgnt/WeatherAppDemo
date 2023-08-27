@@ -13,6 +13,7 @@ class WDWeatherSearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet  var cityLabel: UILabel!
     @IBOutlet  var descLabel: UILabel!
     @IBOutlet  var tempLabel: UILabel!
+    @IBOutlet  var backgroundImageView: UIImageView!
     
     var cornerRadius: CGFloat = 7.0
     
@@ -33,6 +34,11 @@ class WDWeatherSearchCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.10
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 5)
+        
+        //backgroundImageView.applyBlurEffect()
+        backgroundImageView.clipsToBounds = true
+        backgroundImageView.autoresizesSubviews = false
+        backgroundImageView.image = nil
     }
     
     override func layoutSubviews() {
@@ -45,10 +51,16 @@ class WDWeatherSearchCollectionViewCell: UICollectionViewCell {
         ).cgPath
     }
     
-    func updateTemperature(temperature: String, theme: WDTheme? = nil) {
+    func updateTemperature(weatherInfo: WDWeatherViewModel?, theme: WDTheme? = nil) {
+        let temperature = String(Int(weatherInfo?.weatherDetails?.main?.temp ?? 0))
         tempLabel.attributedText = makeTemperatureText(with: temperature, theme: theme)
-        let backgroundColor = theme?.tempColors.colorFor(tempInFarenhiet: Int(temperature) ?? 20) ?? UIColor.systemGroupedBackground
-        self.contentView.backgroundColor = backgroundColor
+        
+        if let imageName = weatherInfo?.weatherDetails?.backgroundImageName() {
+            backgroundImageView.image = UIImage(named: imageName)
+        } else if let temperature = weatherInfo?.weatherDetails?.main?.temp {
+            let backgroundColor = theme?.tempColors.colorFor(tempInFarenhiet: Int(temperature) ?? 20) ?? UIColor.systemGroupedBackground
+            self.contentView.backgroundColor = backgroundColor
+        }
     }
     
     private func makeTemperatureText(with temperature: String, theme: WDTheme? = nil) -> NSAttributedString {
