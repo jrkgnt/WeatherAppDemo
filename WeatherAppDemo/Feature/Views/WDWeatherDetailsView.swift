@@ -107,11 +107,11 @@ class WDWeatherDetailsView: UIView {
         
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureLabel.font = UIFont.systemFont(ofSize: 80)
-        temperatureLabel.attributedText = makeTemperatureText(with: "75")
+        temperatureLabel.attributedText = makeTemperatureText(with: "--")
         
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        cityLabel.text = "Cupertino"
+        cityLabel.text = "------"
         
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFont.preferredFont(forTextStyle: .title2)
